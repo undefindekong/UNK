@@ -28,8 +28,8 @@
    text-align: center;
 "
 <center>
-   <p>欢迎访问本网站</p>
-   <input id='pwd'   type="password" placeholder="请输入密码">
+   <p>1+1=？</p>
+   <input id='pwd'   placeholder="请输入答案">
    <br>
    
    <input type="button" id='ok'  onclick="ok();" value="确定" width="40px" >
@@ -37,12 +37,13 @@
 <script>
     function ok(){
     let pwd = document.getElementById('pwd').value;
-    if(pwd == '0108'){
-    alert('密码正确')
-    location.href='https://undefindekong.github.io/test-one/new.html'
+    if(pwd == '2'){
+    alert('答案正确')
+    location.href=''
     }
     else{
-    alert('密码错误');
+    alert('答案错误');
+    location.href='https://undefindekong.github.io/test-one/'
     }
     }
     </script>
