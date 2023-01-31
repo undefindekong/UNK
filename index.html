@@ -9,24 +9,44 @@
 </style>
 </head>
 
+
 <body>
    <div style="
    background-color: #f1f1f1;
    text-align: center;
    padding:40px;
    ">
-    <img src="https://i.328888.xyz/2023/01/31/8xMqy.jpeg"   src="test"  width="500px"  height="300px">
+    <h1>本网站由Kong搭建</h1>
+    
      
 </div>
    <div style="
    max-width:700px;
    margin:30px auto;
-   padding:15px;
+   padding:40px;
    line-height:1.7;
+   text-align: center;
 "
+<center>
    <p>欢迎访问本网站</p>
-   <p>网站内容将在后期不断更新</p>
-   <p>敬请期待</p>
+   <input id='pwd'   type="password" placeholder="请输入密码">
+   <br>
+   
+   <input type="button" id='ok'  onclick="ok();" value="确定" width="40px" >
+</center>
+<script>
+    function ok(){
+    let pwd = document.getElementById('pwd').value;
+    if(pwd == '0108'){
+    alert('密码正确')
+    location.href='https://undefindekong.github.io/test-one/'
+    }
+    else{
+    alert('密码错误');
+    }
+    }
+    </script>
+
   
 
    </div>
@@ -41,4 +61,3 @@
       <div/>
 
 </body>
-</html>
