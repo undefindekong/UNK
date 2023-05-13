@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>母亲节快乐！</title>
+	<style>
+		body {
+			background-color: pink;
+			font-family: Arial, sans-serif;
+		}
+		.petal {
+			position: absolute;
+			width: 0;
+			height: 0;
+			border-radius: 50%;
+			background-color: transparent;
+			border: 10px solid transparent;
+			border-top-color: rgb(250, 11, 182);
+			animation: petal-fall 5s linear infinite;
+		}
+		.petal:nth-child(1) {
+			top: -50px;
+			left: 10%;
+			animation-delay: 0s;
+		}
+		.petal:nth-child(2) {
+			top: -50px;
+			left: 30%;
+			animation-delay: 1s;
+		}
+		.petal:nth-child(3) {
+			top: -50px;
+			left: 50%;
+			animation-delay: 2s;
+		}
+		.petal:nth-child(4) {
+			top: -50px;
+			left: 70%;
+			animation-delay: 3s;
+		}
+		.petal:nth-child(5) {
+			top: -50px;
+			left: 90%;
+			animation-delay: 4s;
+		}
+		@keyframes petal-fall {
+			0% {
+				transform: translateY(-50px) rotate(0deg);
+			}
+			100% {
+				transform: translateY(100vh) rotate(360deg);
+			}
+		}
+		h1 {
+			text-align: center;
+			font-size: 3em;
+			margin-top: 100px;
+			position: relative;
+		}
+	
+		}
+		
+		p {
+			text-align: center;
+			font-size: 1.5em;
+			margin-top: 50px;
+			position: relative;
+		}
+		
+	</style>
+</head>
+<body>
+	<h1>母亲节快乐！</h1>
+  <center>
+	<p>感谢您一直以来的关爱和支持
+  </p>
+  <p>
+                                          ---豆豆
+  </p>
+
+
+  </center>
+	<div class="petal"></div>
+	<div class="petal"></div>
+	<div class="petal"></div>
+	<div class="petal"></div>
+	<div class="petal"></div>
+</body>
+</html>
+
