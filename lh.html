@@ -839,8 +839,8 @@
 
  
    <body> 
-     <div class="popup"> 
-       <div class="popup-content"> 
+     <div class="popu"> 
+       <div class="popu-content"> 
          <h2>UNK官网预览</h2> 
          <p>欢迎访问UNK官网，这里是我们最新推出的展示页面</p > 
          <button class="close-btn">关闭</button> 
@@ -850,9 +850,9 @@
    </body> 
  </html> 
   
-  
+<body>  
  <style> 
- .popup { 
+ .popu { 
    display: none; 
    position: fixed; 
    z-index: 1; 
@@ -864,7 +864,7 @@
    background-color: rgba(0,0,0,0.7); 
  } 
   
- .popup-content { 
+ .popu-content { 
    background-color: #fefefe; 
    margin: 15% auto; 
    padding: 20px; 
@@ -884,19 +884,20 @@
    margin-top: 20px; 
  } 
  </style>
+</body>
  
  <script> 
- var popup = document.querySelector(".popup"); 
+ var popu = document.querySelector(".popu"); 
  var closeBtn = document.querySelector(".close-btn"); 
   
  window.onload = function() { 
    setTimeout(function() { 
-     popup.style.display = "block"; 
+     popu.style.display = "block"; 
    }, 0); 
  } 
   
  closeBtn.onclick = function() { 
-   popup.style.display = "none"; 
+   popu.style.display = "none"; 
  } 
  </script>
 
