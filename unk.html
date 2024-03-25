@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ <title>UNK</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <header>
+  <nav>
+   <ul>
+    <li>首页</li>
+    <li>关于我</li>
+    <li>目录</li>
+    <li>联系方式</li>
+   </ul>
+  </nav>
+ </header>
+
+ <main>
+  <section class="hero">
+   <h1>欢迎来到UNK官方网站</h1 >
+   <p>.......</p >
+   了解更多
+  </section>
+
+  <section class="about">
+   <h2>关于我</h2>
+   <p>.......</p >
+   了解更多
+  </section>
+ 
+ </main>
+
+ <footer>
+ <center>
+  <p>版权所有 © UNK</p >
+  </center>
+ </footer>
+
+ <script src="script.js"></script>
+</body>
+</html>
+
+
+<style>
+* {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+}
+
+body {
+ font-family: 'Noto Sans', sans-serif;
+ line-height: 1.5;
+ color: #333;
+ background-color: #f7f7f7;
+}
+
+header {
+ background-color: #fff;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ padding: 20px;
+}
+
+nav ul {
+ list-style: none;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+nav li a {
+ text-decoration: none;
+ color: #333;
+ font-weight: bold;
+ padding: 10px;
+ transition: all 0.3s ease-in-out;
+}
+
+nav li a:hover {
+ background-color: #333;
+ color: #fff;
+}
+
+main {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 20px;
+}
+
+section {
+ margin-bottom: 40px;
+}
+
+.hero {
+ background-image: url('img/hero.jpg');
+ background-size: cover;
+ background-position: center;
+ height: 500px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+ color: #fff;
+}
+
+.hero h1 {
+ font-size: 48px;
+ margin-bottom: 20px;
+ color:black;
+}
+
+.hero p {
+ font-size: 24px;
+ margin-bottom: 40px;
+ color:black;
+}
+
+.about {
+ text-align: center;
+}
+
+.about h2 {
+ font-size: 36px;
+ margin-bottom: 20px;
+}
+
+.about p {
+ font-size: 18px;
+ margin-bottom: 40px;
+}
+
+.blog {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ align-items: center;
+}
+
+.blog article {
+ flex-basis: calc(33.33% - 20px);
+ margin-bottom: 40px;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ overflow: hidden;
+}
+
+.blog article img {
+ width: 100%;
+ height: 200px;
+ object-fit: cover;
+ object-position: center;
+}
+
+.blog article h3 {
+ font-size: 24px;
+ margin: 20px;
+}
+
+.blog article p {
+ font-size: 16px;
+ margin: 0 20px 20px;
+}
+
+.contact {
+ text-align: center;
+}
+
+.contact h2 {
+ font-size: 36px;
+ margin-bottom: 20px;
+}
+
+.contact form {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.contact label {
+ font-size: 18px;
+ margin-bottom: 10px;
+}
+
+.contact input,
+.contact textarea {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 20px;
+ border-radius: 5px;
+ border: none;
+}
+
+.contact button {
+ background-color: #333;
+ color: #fff;
+ padding: 10px 20px;
+ border-radius: 5px;
+ border: none;
+ font-size: 18px;
+ cursor: pointer;
+ transition: all 0.3s ease-in-out;
+}
+
+.contact button:hover {
+ background-color: #fff;
+ color: #333;
+}
+
+.btn {
+ display: inline-block;
+ background-color: #333;
+ color: #fff;
+ padding: 10px 20px;
+ border-radius: 5px;
+ border: none;
+ font-size: 18px;
+ margin-top: 20px;
+ text-decoration: none;
+ transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+ background-color: #fff;
+ color: #333;
+}
+
+@media screen and (max-width: 768px) {
+ nav ul {
+  flex-direction: column;
+ }
+ nav li {
+  margin-bottom: 10px;
+ }
+ nav li a {
+  padding: 5px;
+ }
+ .blog article {
+  flex-basis: calc(50% - 20px);
+ }
+}
+
+@media screen and (max-width: 480px) {
+ .hero h1 {
+  font-size: 36px;
+ }
+ .hero p {
+  font-size: 18px;
+ }
+ .blog article {
+  flex-basis: 100%;
+ }
+}
+
+</style>
+
+
+
+
+<script>
+const hero = document.querySelector('.hero');
+const text = hero.querySelector('h1');
+const walk = 100;
+
+function shadow(e) {
+ const { offsetWidth: width, offsetHeight: height } = hero;
+ let { offsetX: x, offsetY: y } = e;
+
+ if (this !== e.target) {
+  x = x + e.target.offsetLeft;
+  y = y + e.target.offsetTop;
+ }
+
+ const xWalk = Math.round((x / width * walk) - (walk / 2));
+ const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+ text.style.textShadow = ${xWalk}px ${yWalk}px 0 rgba(255, 255, 255, 0.7),
+        ${xWalk * -1}px ${yWalk}px 0 rgba(255, 255, 255, 0.7),
+        ${yWalk}px ${xWalk * -1}px 0 rgba(255, 255, 255, 0.7),
+        ${yWalk * -1}px ${xWalk}px 0 rgba(255, 255, 255, 0.7);
+}
+
+hero.addEventListener('mousemove', shadow);
+
+
+// 悬停效果
+const navLinks = document.querySelectorAll('nav li a');
+
+navLinks.forEach(link => {
+ link.addEventListener('mouseover', () => {
+  link.style.transform = 'scale(1.2)';
+ });
+
+ link.addEventListener('mouseout', () => {
+  link.style.transform = 'scale(1)';
+ });
+});
+
+// 点击效果
+const btns = document.querySelectorAll('.btn');
+
+btns.forEach(btn => {
+ btn.addEventListener('click', e => {
+  e.preventDefault();
+  alert('该功能正在开发中，敬请期待！');
+ });
+});
+
+// 滚动效果
+const hero = document.querySelector('.hero');
+
+window.addEventListener('scroll', () => {
+ const scrollPos = window.scrollY;
+ hero.style.backgroundPositionY = ${scrollPos / 2}px;
+});
+
+// 轮播图
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+ const slides = document.querySelectorAll('.slideshow img');
+
+ for (let i = 0; i < slides.length; i++) {
+  slides[i].style.display = 'none';
+ }
+
+ slideIndex++;
+
+ if (slideIndex > slides.length) {
+  slideIndex = 1;
+ }
+
+ slides[slideIndex - 1].style.display = 'block';
+
+ setTimeout(showSlides, 10000);
+}
+</script>
