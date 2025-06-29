@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusTech - 连接未来科技</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#111827',
+                        light: '#F9FAFB',
+                        'neutral-50': '#F9FAFB',
+                        'neutral-100': '#F3F4F6',
+                        'neutral-200': '#E5E7EB',
+                        'neutral-300': '#D1D5DB',
+                        'neutral-400': '#9CA3AF',
+                        'neutral-500': '#6B7280',
+                        'neutral-600': '#4B5563',
+                        'neutral-700': '#374151',
+                        'neutral-800': '#1F2937',
+                        'neutral-900': '#111827',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            }
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+            .bg-grid {
+                background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+            .glass {
+                @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl;
+            }
+            .glass-dark {
+                @apply bg-dark/70 backdrop-blur-xl border border-white/10 shadow-xl;
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-pulse-slow {
+                animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            .rotate-hover {
+                @apply transition-transform duration-500 hover:rotate-3;
+            }
+            .scale-hover {
+                @apply transition-transform duration-300 hover:scale-105;
+            }
+            .lift-hover {
+                @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+            }
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s ease;
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #F9FAFB;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
+        }
+        .service-card {
+            transition: all 0.5s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .product-card {
+            transition: all 0.5s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(59, 130, 246, 0.15);
+        }
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            width: 0%;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #3B82F6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="font-inter bg-neutral-900 text-light">
+    <!-- 进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full z-40 transition-all duration-300">
+        <nav class="glass-dark py-4 px-6 md:px-12 flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="text-white text-2xl font-bold tracking-tight flex items-center">
+                    <span class="text-primary bg-white p-1 rounded mr-2 hover-scale">N</span>
+                    <span>NexusTech</span>
+                </div>
+            </div>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-white hover:text-primary transition-colors duration-300">首页</a>
+                <a href="#services" class="nav-link text-white hover:text-primary transition-colors duration-300">服务</a>
+                <a href="#products" class="nav-link text-white hover:text-primary transition-colors duration-300">产品</a>
+                <a href="#about" class="nav-link text-white hover:text-primary transition-colors duration-300">关于我们</a>
+                <a href="#contact" class="bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-primary/30 hover-scale">
+                    联系我们
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-white text-2xl hover-scale">
+                <i class="fa fa-bars"></i>
+            </button>
+        </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="hidden glass-dark md:hidden">
+            <div class="flex flex-col py-4 px-6 space-y-4">
+                <a href="#home" class="text-white hover:text-primary transition-colors duration-300 py-2 hover-lift">首页</a>
+                <a href="#services" class="text-white hover:text-primary transition-colors duration-300 py-2 hover-lift">服务</a>
+                <a href="#products" class="text-white hover:text-primary transition-colors duration-300 py-2 hover-lift">产品</a>
+                <a href="#about" class="text-white hover:text-primary transition-colors duration-300 py-2 hover-lift">关于我们</a>
+                <a href="#contact" class="bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-full transition-all duration-300 text-center shadow-lg hover:shadow-primary/30 hover-scale">
+                    联系我们
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden bg-grid">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-10 right-10 w-64 h-64 rounded-full bg-primary/20 blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-accent/20 blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 py-24 md:py-32 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 reveal">
+                    <div class="inline-block glass text-white px-4 py-2 rounded-full text-sm font-medium hover-lift rotate-hover">
+                        前沿科技 · 未来已至
+                    </div>
+                    <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-white leading-tight text-shadow">
+                        连接<span class="text-gradient bg-gradient-to-r from-primary to-accent">技术</span>与<span class="text-gradient bg-gradient-to-r from-accent to-primary">未来</span>
+                    </h1>
+                    <p class="text-white/80 text-lg md:text-xl max-w-lg">
+                        NexusTech致力于为企业和个人提供前沿的技术解决方案，帮助您在数字化时代保持竞争优势。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#services" class="bg-white text-primary hover:bg-opacity-90 py-3 px-8 rounded-full font-medium transition-all duration-300 shadow-xl hover:shadow-white/20 hover-scale">
+                            了解我们的服务
+                        </a>
+                        <a href="#products" class="bg-transparent border-2 border-white text-white hover:bg-white/10 py-3 px-8 rounded-full font-medium transition-all duration-300 hover-scale">
+                            查看产品
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6 pt-4">
+                        <div class="flex -space-x-2">
+                            <img src="https://picsum.photos/id/237/100/100" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white hover-scale">
+                            <img src="https://picsum.photos/id/238/100/100" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white hover-scale">
+                            <img src="https://picsum.photos/id/239/100/100" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white hover-scale">
+                            <div class="w-10 h-10 rounded-full border-2 border-white bg-primary flex items-center justify-center text-white text-xs font-medium hover-scale">
+                                500+
+                            </div>
+                        </div>
+                        <div class="text-white/90 text-sm">
+                            <span class="text-white font-semibold">500+</span> 客户的信赖之选
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal" style="transition-delay: 0.3s;">
+                    <div class="glass rounded-2xl p-6 shadow-2xl animate-float">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-white font-semibold text-lg">智能数据分析平台</h3>
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full hover-scale">
+                                <i class="fa fa-circle mr-1"></i>在线
+                            </span>
+                        </div>
+                        <div class="h-64 mb-4">
+                            <canvas id="analyticsChart"></canvas>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="glass p-3 rounded-lg hover-lift">
+                                <p class="text-white/70 text-sm">数据处理量</p>
+                                <p class="text-white font-bold text-xl" id="dataCount">1.2PB</p>
+                                <p class="text-green-400 text-xs"><i class="fa fa-arrow-up"></i> 24.3%</p>
+                            </div>
+                            <div class="glass p-3 rounded-lg hover-lift">
+                                <p class="text-white/70 text-sm">预测准确率</p>
+                                <p class="text-white font-bold text-xl" id="accuracyRate">98.7%</p>
+                                <p class="text-green-400 text-xs"><i class="fa fa-arrow-up"></i> 5.2%</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -bottom-10 -left-10 glass p-4 rounded-xl shadow-xl animate-float" style="animation-delay: 1s; transition-delay: 0.6s;">
+                        <div class="flex items-center space-x-3 hover-lift">
+                            <div class="bg-primary/20 p-3 rounded-full">
+                                <i class="fa fa-bolt text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/70 text-sm">处理速度</p>
+                                <p class="text-white font-bold">1000+TPS</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-5 -right-5 glass p-4 rounded-xl shadow-xl animate-float" style="animation-delay: 2s; transition-delay: 0.9s;">
+                        <div class="flex items-center space-x-3 hover-lift">
+                            <div class="bg-green-500/20 p-3 rounded-full">
+                                <i class="fa fa-check text-green-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/70 text-sm">系统状态</p>
+                                <p class="text-white font-bold">正常运行</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce reveal" style="transition-delay: 1.2s;">
+                <a href="#services" class="flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity hover-scale">
+                    <span class="mb-2 text-sm">向下滚动</span>
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务区域 -->
+    <section id="services" class="py-20 md:py-32 bg-neutral-800 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/4"></div>
+            <div class="absolute bottom-0 left-0 w-1/3 h-1/3 bg-primary/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-primary font-semibold">我们的服务</span>
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mt-2 mb-6">为您提供全方位的<span class="text-gradient bg-gradient-to-r from-primary to-accent">技术解决方案</span></h2>
+                <p class="text-white/70 text-lg">
+                    无论您需要何种技术支持，我们都能为您提供定制化的解决方案，帮助您实现业务目标。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 服务卡片 1 -->
+                <div class="service-card glass rounded-2xl p-8 shadow-lg reveal" style="transition-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 hover-scale">
+                        <i class="fa fa-code text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Web应用开发</h3>
+                    <p class="text-white/70 mb-6">
+                        我们提供高质量的Web应用开发服务，从前端到后端，为您打造功能强大、用户友好的网站和应用程序。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            响应式设计
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            高性能优化
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            安全防护
+                        </li>
+                    </ul>
+                    <a href="#" class="text-primary font-medium flex items-center group">
+                        了解更多
+                        <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片 2 -->
+                <div class="service-card glass rounded-2xl p-8 shadow-lg reveal" style="transition-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 hover-scale">
+                        <i class="fa fa-mobile text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">移动应用开发</h3>
+                    <p class="text-white/70 mb-6">
+                        我们专注于开发高性能、用户体验卓越的移动应用，支持iOS和Android平台，帮助您拓展移动市场。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            原生应用开发
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            跨平台开发
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            应用商店优化
+                        </li>
+                    </ul>
+                    <a href="#" class="text-primary font-medium flex items-center group">
+                        了解更多
+                        <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片 3 -->
+                <div class="service-card glass rounded-2xl p-8 shadow-lg reveal" style="transition-delay: 0.3s;">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 hover-scale">
+                        <i class="fa fa-cloud text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">云计算与大数据</h3>
+                    <p class="text-white/70 mb-6">
+                        我们提供云基础设施规划、部署和管理服务，以及大数据分析解决方案，帮助您挖掘数据价值。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            云迁移与优化
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            数据仓库建设
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            机器学习模型开发
+                        </li>
+                    </ul>
+                    <a href="#" class="text-primary font-medium flex items-center group">
+                        了解更多
+                        <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片 4 -->
+                <div class="service-card glass rounded-2xl p-8 shadow-lg reveal" style="transition-delay: 0.4s;">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 hover-scale">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">网络安全</h3>
+                    <p class="text-white/70 mb-6">
+                        我们提供全面的网络安全解决方案，保护您的业务数据和系统免受各种威胁，确保业务连续性。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            安全评估与审计
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            威胁检测与响应
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            数据加密与保护
+                        </li>
+                    </ul>
+                    <a href="#" class="text-primary font-medium flex items-center group">
+                        了解更多
+                        <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片 5 -->
+                <div class="service-card glass rounded-2xl p-8 shadow-lg reveal" style="transition-delay: 0.5s;">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 hover-scale">
+                        <i class="fa fa-cogs text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">IT咨询服务</h3>
+                    <p class="text-white/70 mb-6">
+                        我们的IT咨询团队可以帮助您制定技术战略，优化IT基础设施，提高业务效率和竞争力。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            技术战略规划
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            系统架构设计
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            数字化转型咨询
+                        </li>
+                    </ul>
+                    <a href="#" class="text-primary font-medium flex items-center group">
+                        了解更多
+                        <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <!-- 服务卡片 6 -->
+                <div class="service-card glass rounded-2xl p-8 shadow-lg reveal" style="transition-delay: 0.6s;">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6 hover-scale">
+                        <i class="fa fa-line-chart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">数据分析与AI</h3>
+                    <p class="text-white/70 mb-6">
+                        我们利用先进的数据分析和人工智能技术，帮助您从海量数据中获取有价值的见解，驱动业务增长。
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            数据可视化
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            预测分析
+                        </li>
+                        <li class="flex items-center text-white/70">
+                            <i class="fa fa-check text-green-500 mr-2"></i>
+                            AI解决方案开发
+                        </li>
+                    </ul>
+                    <a href="#" class="text-primary font-medium flex items-center group">
+                        了解更多
+                        <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 reveal" style="transition-delay: 0.7s;">
+                <a href="#contact" class="inline-block bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-primary/30 hover-scale">
+                    联系我们获取服务
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品区域 -->
+    <section id="products" class="py-20 md:py-32 bg-neutral-900 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 rounded-l-full -translate-y-1/4"></div>
+            <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-primary/5 rounded-r-full translate-y-1/4"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-primary font-semibold">我们的产品</span>
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mt-2 mb-6">创新<span class="text-gradient bg-gradient-to-r from-primary to-accent">产品</span>助力业务增长</h2>
+                <p class="text-white/70 text-lg">
+                    我们开发的产品旨在解决实际业务问题，提高效率，降低成本，为您的业务创造更大价值。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 产品卡片 1 -->
+                <div class="product-card glass bg-neutral-800 rounded-2xl overflow-hidden shadow-xl reveal" style="transition-delay: 0.1s;">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://picsum.photos/id/180/800/600" alt="数据智能平台" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">数据智能平台</h3>
+                            <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full hover-scale">
+                                数据分析
+                            </span>
+                        </div>
+                        <p class="text-white/70 mb-6">
+                            集成数据采集、清洗、分析和可视化功能的一站式平台，帮助企业快速获取数据洞察。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star-half-o text-yellow-400"></i>
+                                <span class="text-white/70 text-sm ml-2">4.8 (120)</span>
+                            </div>
+                            <a href="#" class="text-primary font-medium flex items-center group">
+                                查看详情
+                                <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片 2 -->
+                <div class="product-card glass bg-neutral-800 rounded-2xl overflow-hidden shadow-xl reveal" style="transition-delay: 0.2s;">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://picsum.photos/id/0/800/600" alt="智能客服机器人" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">智能客服机器人</h3>
+                            <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full hover-scale">
+                                AI解决方案
+                            </span>
+                        </div>
+                        <p class="text-white/70 mb-6">
+                            基于自然语言处理技术的智能客服系统，7×24小时为客户提供服务，提高客户满意度。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star-o text-yellow-400"></i>
+                                <span class="text-white/70 text-sm ml-2">4.2 (95)</span>
+                            </div>
+                            <a href="#" class="text-primary font-medium flex items-center group">
+                                查看详情
+                                <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片 3 -->
+                <div class="product-card glass bg-neutral-800 rounded-2xl overflow-hidden shadow-xl reveal" style="transition-delay: 0.3s;">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://picsum.photos/id/160/800/600" alt="云安全防护系统" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">云安全防护系统</h3>
+                            <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full hover-scale">
+                                网络安全
+                            </span>
+                        </div>
+                        <p class="text-white/70 mb-6">
+                            全方位的云安全解决方案，实时监控网络威胁，保护您的业务数据和系统安全。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <span class="text-white/70 text-sm ml-2">4.9 (156)</span>
+                            </div>
+                            <a href="#" class="text-primary font-medium flex items-center group">
+                                查看详情
+                                <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <!-- 产品卡片 4 -->
+                <div class="product-card glass bg-neutral-800 rounded-2xl overflow-hidden shadow-xl reveal" style="transition-delay: 0.4s;">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://picsum.photos/id/180/800/600" alt="企业资源规划系统" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">企业资源规划系统</h3>
+                            <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full hover-scale">
+                                企业管理
+                            </span>
+                        </div>
+                        <p class="text-white/70 mb-6">
+                            集成财务、人力资源、供应链等核心业务流程的一体化管理系统，提高企业运营效率。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star-half-o text-yellow-400"></i>
+                                <span class="text-white/70 text-sm ml-2">4.7 (112)</span>
+                            </div>
+                            <a href="#" class="text-primary font-medium flex items-center group">
+                                查看详情
+                                <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 产品卡片 5 -->
+                <div class="product-card glass bg-neutral-800 rounded-2xl overflow-hidden shadow-xl reveal" style="transition-delay: 0.5s;">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://picsum.photos/id/160/800/600" alt="移动应用开发平台" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">移动应用开发平台</h3>
+                            <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full hover-scale">
+                                开发工具
+                            </span>
+                        </div>
+                        <p class="text-white/70 mb-6">
+                            一站式移动应用开发平台，支持快速构建、测试和部署跨平台移动应用，降低开发成本。
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star text-yellow-400"></i>
+                                <i class="fa fa-star-o text-yellow-400"></i>
+                                <span class="text-white/70 text-sm ml-2">4.3 (87)</span>
+                            </div>
+                            <a href="#" class="text-primary font-medium flex items-center group">
+                                查看详情
+                                <i class="fa fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 reveal" style="transition-delay: 0.6s;">
+                <a href="#contact" class="inline-block bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-primary/30 hover-scale">
+                    了解更多产品
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 md:py-32 bg-neutral-800 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/4 h-1/4 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-primary/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative reveal">
+                    <div class="rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://picsum.photos/id/3/800/600" alt="团队合作" class="w-full h-auto">
+                    </div>
+                    
+                    <div class="absolute -bottom-6 -right-6 glass p-6 rounded-2xl shadow-xl max-w-xs hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary/10 p-3 rounded-xl hover-scale">
+                                <i class="fa fa-users text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">专业团队</h4>
+                                <p class="text-white/70 text-sm">
+                                    我们拥有一支由行业专家组成的团队，平均拥有10年以上的专业经验。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-6 -left-6 glass p-6 rounded-2xl shadow-xl max-w-xs hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-green-500/10 p-3 rounded-xl hover-scale">
+                                <i class="fa fa-trophy text-green-500 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">行业认可</h4>
+                                <p class="text-white/70 text-sm">
+                                    我们获得了多项行业奖项和认证，证明了我们在技术领域的领先地位。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <span class="text-primary font-semibold">关于我们</span>
+                    <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mt-2 mb-6">连接<span class="text-gradient bg-gradient-to-r from-primary to-accent">技术</span>与<span class="text-gradient bg-gradient-to-r from-accent to-primary">未来</span></h2>
+                    <p class="text-white/70 text-lg mb-6">
+                        NexusTech成立于2015年，是一家专注于提供前沿技术解决方案的创新型企业。我们的使命是通过技术创新帮助企业和个人实现数字化转型，创造更美好的未来。
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start space-x-4 hover-lift">
+                            <div class="bg-primary/10 p-3 rounded-xl hover-scale">
+                                <i class="fa fa-lightbulb-o text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">创新精神</h4>
+                                <p class="text-white/70 text-sm">
+                                    我们不断探索新技术、新方法，为客户提供最具创新性的解决方案。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 hover-lift">
+                            <div class="bg-primary/10 p-3 rounded-xl hover-scale">
+                                <i class="fa fa-handshake-o text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">客户至上</h4>
+                                <p class="text-white/70 text-sm">
+                                    我们始终以客户需求为中心，提供优质的服务和支持，确保客户满意度。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 hover-lift">
+                            <div class="bg-primary/10 p-3 rounded-xl hover-scale">
+                                <i class="fa fa-code-fork text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">技术卓越</h4>
+                                <p class="text-white/70 text-sm">
+                                    我们的团队由行业顶尖人才组成，确保为客户提供最专业的技术解决方案。
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 hover-lift">
+                            <div class="bg-primary/10 p-3 rounded-xl hover-scale">
+                                <i class="fa fa-globe text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">全球视野</h4>
+                                <p class="text-white/70 text-sm">
+                                    我们关注全球技术趋势，将国际先进理念和方法融入到我们的解决方案中。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+                        <div class="text-center hover-lift">
+                            <p class="text-4xl font-bold text-primary mb-2">500+</p>
+                            <p class="text-white/70">客户案例</p>
+                        </div>
+                        <div class="text-center hover-lift">
+                            <p class="text-4xl font-bold text-primary mb-2">100+</p>
+                            <p class="text-white/70">专业团队</p>
+                        </div>
+                        <div class="text-center hover-lift">
+                            <p class="text-4xl font-bold text-primary mb-2">15+</p>
+                            <p class="text-white/70">技术领域</p>
+                        </div>
+                        <div class="text-center hover-lift">
+                            <p class="text-4xl font-bold text-primary mb-2">30+</p>
+                            <p class="text-white/70">行业覆盖</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-primary/30 hover-scale">
+                        联系我们
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 md:py-32 bg-neutral-900 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 rounded-l-full -translate-y-1/4"></div>
+            <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-primary/5 rounded-r-full translate-y-1/4"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <span class="text-primary font-semibold">联系我们</span>
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mt-2 mb-6">与我们<span class="text-gradient bg-gradient-to-r from-primary to-accent">取得联系</span></h2>
+                <p class="text-white/70 text-lg">
+                    无论您有任何问题或需求，我们的团队都随时准备为您提供帮助和支持。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2 reveal" style="transition-delay: 0.1s;">
+                    <div class="glass p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6">发送消息</h3>
+                        <form id="contactForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-white/70 mb-2">姓名</label>
+                                    <input type="text" id="name" name="name" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请输入您的姓名">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-white/70 mb-2">邮箱</label>
+                                    <input type="email" id="email" name="email" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请输入您的邮箱">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-white/70 mb-2">主题</label>
+                                <input type="text" id="subject" name="subject" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请输入消息主题">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-white/70 mb-2">消息内容</label>
+                                <textarea id="message" name="message" rows="5" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary resize-none" placeholder="请输入您的消息内容"></textarea>
+                            </div>
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-primary/30 hover-scale">
+                                发送消息
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="space-y-8 reveal" style="transition-delay: 0.3s;">
+                    <div class="glass p-6 rounded-2xl shadow-xl hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary/10 p-3 rounded-full hover-scale">
+                                <i class="fa fa-map-marker text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">办公地址</h4>
+                                <p class="text-white/70">
+                                    北京市海淀区中关村科技园区8号楼23层
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass p-6 rounded-2xl shadow-xl hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary/10 p-3 rounded-full hover-scale">
+                                <i class="fa fa-phone text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">联系电话</h4>
+                                <p class="text-white/70">
+                                    +86 10 8888 8888
+                                </p>
+                                <p class="text-white/70">
+                                    +86 10 8888 8889
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass p-6 rounded-2xl shadow-xl hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-primary/10 p-3 rounded-full hover-scale">
+                                <i class="fa fa-envelope text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">电子邮箱</h4>
+                                <p class="text-white/70">
+                                    info@nexustech.com
+                                </p>
+                                <p class="text-white/70">
+                                    support@nexustech.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass p-6 rounded-2xl shadow-xl">
+                        <h4 class="font-bold text-lg mb-4">关注我们</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                <i class="fa fa-weixin"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                <i class="fa fa-weibo"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral-900 border-t border-neutral-800 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="text-white text-2xl font-bold tracking-tight flex items-center mb-4">
+                        <span class="text-primary bg-white p-1 rounded mr-2">N</span>
+                        <span>NexusTech</span>
+                    </div>
+                    <p class="text-white/70 mb-6">
+                        连接技术与未来，为您提供前沿的技术解决方案。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-white/70 hover:text-primary transition-colors duration-300">首页</a></li>
+                        <li><a href="#services" class="text-white/70 hover:text-primary transition-colors duration-300">服务</a></li>
+                        <li><a href="#products" class="text-white/70 hover:text-primary transition-colors duration-300">产品</a></li>
+                        <li><a href="#about" class="text-white/70 hover:text-primary transition-colors duration-300">关于我们</a></li>
+                        <li><a href="#contact" class="text-white/70 hover:text-primary transition-colors duration-300">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">服务</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">Web应用开发</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">移动应用开发</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">云计算与大数据</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">网络安全</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary transition-colors duration-300">IT咨询服务</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">联系我们</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+                            <span class="text-white/70">北京市海淀区中关村科技园区8号楼23层</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone text-primary mr-3"></i>
+                            <span class="text-white/70">+86 10 8888 8888</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-primary mr-3"></i>
+                            <span class="text-white/70">info@nexustech.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-white/70 text-sm mb-4 md:mb-0">
+                    &copy; 2023 NexusTech. 保留所有权利。
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white/70 hover:text-primary text-sm transition-colors duration-300">隐私政策</a>
+                    <a href="#" class="text-white/70 hover:text-primary text-sm transition-colors duration-300">服务条款</a>
+                    <a href="#" class="text-white/70 hover:text-primary text-sm transition-colors duration-300">Cookie政策</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const progressBar = document.getElementById('progressBar');
+            
+            // 导航栏背景变化
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-dark');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+            
+            // 进度条
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + "%";
+            
+            // 滚动显示动画
+            revealElements();
+        });
+        
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 滚动显示元素
+        function revealElements() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        // 初始化图表
+        window.addEventListener('load', function() {
+            const ctx = document.getElementById('analyticsChart').getContext('2d');
+            
+            const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                    datasets: [{
+                        label: '数据处理量 (TB)',
+                        data: [120, 190, 150, 240, 280, 320],
+                        borderColor: '#3B82F6',
+                        backgroundColor: gradient,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#3B82F6',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 初始加载时显示元素
+            revealElements();
+        });
+        
+        // 表单提交处理
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 这里可以添加表单验证和提交逻辑
+            alert('消息发送成功！我们会尽快与您联系。');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
